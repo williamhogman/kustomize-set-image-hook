@@ -2637,7 +2637,7 @@ function configureGit() {
         const email = `${GITHUB_ACTOR}@users.noreply.github.com`;
         const name = 'Github Action';
         yield mustExec('git', ['config', '--global', 'user.email', email]);
-        yield mustExec('git', ['config', '--global', 'user.email', name]);
+        yield mustExec('git', ['config', '--global', 'user.name', name]);
     });
 }
 function mustExec(commandLine, args, options) {

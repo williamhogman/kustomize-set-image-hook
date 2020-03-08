@@ -57,7 +57,7 @@ async function configureGit(): Promise<void> {
   const email = `${GITHUB_ACTOR}@users.noreply.github.com`
   const name = 'Github Action'
   await mustExec('git', ['config', '--global', 'user.email', email])
-  await mustExec('git', ['config', '--global', 'user.email', name])
+  await mustExec('git', ['config', '--global', 'user.name', name])
 }
 
 async function mustExec(
