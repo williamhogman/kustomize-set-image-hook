@@ -80,6 +80,11 @@ async function run(): Promise<void> {
     const newTag: string = core.getInput('newTag', {required: true})
     const newName: string = core.getInput('newName', {required: true})
 
+    if (process.env.DRYRUN === '1') {
+      core.warning('Dryrun, exiting')
+      return
+    }
+
     await fetchDeps()
 
     const success = await kustomize(name, newName, newTag, kustomizePath)

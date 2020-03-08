@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
+  "name": "kustomize-set-image-hook",
   "version": "0.0.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Hook for setting kustomize images",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
