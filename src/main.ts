@@ -16,7 +16,7 @@ async function fetchDeps(): Promise<void> {
     return
   }
   const dl = await tc.downloadTool(KUSTOMIZE_URL)
-  const extFolder = await tc.extractTar(dl, '/tmp/')
+  const extFolder = await tc.extractTar(dl, process.env.HOME)
   const cachedPath = await tc.cacheDir(
     extFolder,
     KUSTOMIZE_NAME,
