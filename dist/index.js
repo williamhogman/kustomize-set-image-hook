@@ -2608,7 +2608,7 @@ function fetchDeps() {
             return;
         }
         const dl = yield tc.downloadTool(KUSTOMIZE_URL);
-        const extFolder = yield tc.extractTar(dl, '/tmp/');
+        const extFolder = yield tc.extractTar(dl, process.env.HOME);
         const cachedPath = yield tc.cacheDir(extFolder, KUSTOMIZE_NAME, KUSTOMIZE_NAME);
         core.addPath(cachedPath);
     });
@@ -2655,6 +2655,7 @@ function run() {
             const name = core.getInput('name', { required: true });
             const newTag = core.getInput('newTag', { required: true });
             const newName = core.getInput('newName', { required: true });
+            const shouldPush = core.getInput('dontPush').trim() !== '';
             if (process.env.DRYRUN === '1') {
                 core.warning('Dryrun, exiting');
                 return;
@@ -2667,7 +2668,14 @@ function run() {
             }
             yield configureGit();
             yield mustExec('git', ['add', kustomizePath]);
-            yield mustExec('git', ['push']);
+            yield mustExec('git', [
+                'commit',
+                '-m',
+                `Setting kustomize image to ${newName}:${newTag} in ${kustomizePath}`
+            ]);
+            if (shouldPush) {
+                yield mustExec('git', ['push']);
+            }
         }
         catch (error) {
             core.setFailed(error.message);
