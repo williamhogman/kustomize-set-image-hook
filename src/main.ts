@@ -60,7 +60,11 @@ async function configureGit(): Promise<void> {
   await mustExec('git', ['config', '--global', 'user.email', name])
 }
 
-async function mustExec(commandLine: string, args?: string[] | undefined, options?: ExecOptions | undefined): Promise<void> {
+async function mustExec(
+  commandLine: string,
+  args?: string[] | undefined,
+  options?: ExecOptions | undefined
+): Promise<void> {
   const res = await exec(commandLine, args, options)
   if (res !== 0) {
     throw new Error(
@@ -88,8 +92,7 @@ async function run(): Promise<void> {
     await configureGit()
 
     await mustExec('git', ['add', kustomizePath])
-    await mustExec('git', ['push']);
-
+    await mustExec('git', ['push'])
   } catch (error) {
     core.setFailed(error.message)
   }
