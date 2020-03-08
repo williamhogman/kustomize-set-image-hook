@@ -79,7 +79,7 @@ async function run(): Promise<void> {
     const name: string = core.getInput('name', {required: true})
     const newTag: string = core.getInput('newTag', {required: true})
     const newName: string = core.getInput('newName', {required: true})
-    const shouldPush = core.getInput('dontPush').trim() !== ''
+    const shouldPush = core.getInput('dontPush').trim() === ''
 
     if (process.env.DRYRUN === '1') {
       core.warning('Dryrun, exiting')

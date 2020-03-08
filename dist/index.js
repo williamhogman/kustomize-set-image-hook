@@ -2655,7 +2655,7 @@ function run() {
             const name = core.getInput('name', { required: true });
             const newTag = core.getInput('newTag', { required: true });
             const newName = core.getInput('newName', { required: true });
-            const shouldPush = core.getInput('dontPush').trim() !== '';
+            const shouldPush = core.getInput('dontPush').trim() === '';
             if (process.env.DRYRUN === '1') {
                 core.warning('Dryrun, exiting');
                 return;
