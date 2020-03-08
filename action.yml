@@ -1,10 +1,20 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Kustomize: Edit image'
+description: 'Greet someone and record the time'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  kustomizePath:
+    description: "The path to the folder containing the kustomization"
+    default: .
+    required: true
+  name:  # id of input
+    description: 'Name of the image to replace the image'
+    required: true
+  newTag:
+    description: 'The new tag for the named image'
+    required: true
+  newName:
+    desctiption: 'The new name for the image'
+    required: true
+outputs:
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'index.js'
