@@ -23,4 +23,4 @@ jobs:
         kustomizePath: example/
         name: foo
         newName: bar
-        newName: baz
+        newTag: baz
