@@ -29,14 +29,15 @@ async function kustomize(
   name: string,
   newName: string,
   newTag: string,
-  kustomizePath: string
+  kustomizePath: string,
+  cwd: string,
 ): Promise<boolean> {
   const setImageClause = `${name}=${newName}:${newTag}`
   const result = await exec(
     'kustomize',
     ['edit', 'set', 'image', setImageClause],
     {
-      cwd: kustomizePath
+      cwd: cwd + "/" + kustomizePath
     }
   )
   return result === 0
@@ -89,7 +90,7 @@ async function run(): Promise<void> {
 
     await fetchDeps()
 
-    const success = await kustomize(name, newName, newTag, kustomizePath)
+    const success = await kustomize(name, newName, newTag, kustomizePath, cwd)
 
     if (!success) {
       core.setFailed('Kustomize failed')

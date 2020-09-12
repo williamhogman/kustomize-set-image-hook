@@ -2613,11 +2613,11 @@ function fetchDeps() {
         core.addPath(cachedPath);
     });
 }
-function kustomize(name, newName, newTag, kustomizePath) {
+function kustomize(name, newName, newTag, kustomizePath, cwd) {
     return __awaiter(this, void 0, void 0, function* () {
         const setImageClause = `${name}=${newName}:${newTag}`;
         const result = yield exec_1.exec('kustomize', ['edit', 'set', 'image', setImageClause], {
-            cwd: kustomizePath
+            cwd: cwd + "/" + kustomizePath
         });
         return result === 0;
     });
@@ -2662,7 +2662,7 @@ function run() {
                 return;
             }
             yield fetchDeps();
-            const success = yield kustomize(name, newName, newTag, kustomizePath);
+            const success = yield kustomize(name, newName, newTag, kustomizePath, cwd);
             if (!success) {
                 core.setFailed('Kustomize failed');
                 return;
