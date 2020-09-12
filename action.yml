@@ -1,9 +1,9 @@
-name: 'Kustomize: Edit image'
-description: 'Greet someone and record the time'
+name: 'Kustomize Edit image'
+description: 'Edit the image used by kustomize'
 inputs:
   kustomizePath:
     description: "The path to the folder containing the kustomization"
-    default: .
+    default: "."
     required: true
   name:  # id of input
     description: 'Name of the image to replace the image'
@@ -14,7 +14,7 @@ inputs:
   newName:
     desctiption: 'The new name for the image'
     required: true
-outputs:
+outputs: {}
 runs:
   using: 'node12'
   main: 'dist/index.js'
