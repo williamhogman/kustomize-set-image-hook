@@ -103,7 +103,6 @@ async function run(): Promise<void> {
       cwd,
     })
     await mustExec('git', [
-      '-C', kustomizePath,
       'commit',
       '-m',
       `Setting kustomize image to ${newName}:${newTag} in ${kustomizePath}`
