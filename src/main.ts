@@ -80,6 +80,7 @@ async function run(): Promise<void> {
     const newTag: string = core.getInput('newTag', {required: true})
     const newName: string = core.getInput('newName', {required: true})
     const shouldPush = core.getInput('dontPush').trim() === ''
+    const cwd: string | undefined = core.getInput('workingDirectory')
 
     if (process.env.DRYRUN === '1') {
       core.warning('Dryrun, exiting')
@@ -97,15 +98,18 @@ async function run(): Promise<void> {
 
     await configureGit()
 
-    await mustExec('git', ['-C', kustomizePath, 'add', kustomizePath])
+    mustExec
+    await mustExec('git', ['add', kustomizePath], {
+      cwd,
+    })
     await mustExec('git', [
       '-C', kustomizePath,
       'commit',
       '-m',
       `Setting kustomize image to ${newName}:${newTag} in ${kustomizePath}`
-    ])
+    ], { cwd })
     if (shouldPush) {
-      await mustExec('git', ['push'])
+      await mustExec('git', ['push'], { cwd })
     }
   } catch (error) {
     core.setFailed(error.message)

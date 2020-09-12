@@ -1,6 +1,14 @@
 name: 'Kustomize Edit image'
+author: "William Rudenmalm"
+branding:
+  icon: 'copy'  
+  color: 'blue'
 description: 'Edit the image used by kustomize'
 inputs:
+  workingDirectory:
+    description: "The path to the working directory"
+    default: "."
+    required: true
   kustomizePath:
     description: "The path to the folder containing the kustomization"
     default: "."
