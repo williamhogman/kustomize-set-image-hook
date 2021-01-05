@@ -30,14 +30,14 @@ async function kustomize(
   newName: string,
   newTag: string,
   kustomizePath: string,
-  cwd: string,
+  cwd: string
 ): Promise<boolean> {
   const setImageClause = `${name}=${newName}:${newTag}`
   const result = await exec(
     'kustomize',
     ['edit', 'set', 'image', setImageClause],
     {
-      cwd: cwd + "/" + kustomizePath
+      cwd: `${cwd}/${kustomizePath}`
     }
   )
   return result === 0
@@ -101,15 +101,19 @@ async function run(): Promise<void> {
 
     mustExec
     await mustExec('git', ['add', kustomizePath], {
-      cwd,
+      cwd
     })
-    await mustExec('git', [
-      'commit',
-      '-m',
-      `Setting kustomize image to ${newName}:${newTag} in ${kustomizePath}`
-    ], { cwd })
+    await mustExec(
+      'git',
+      [
+        'commit',
+        '-m',
+        `Setting kustomize image to ${newName}:${newTag} in ${kustomizePath}`
+      ],
+      {cwd}
+    )
     if (shouldPush) {
-      await mustExec('git', ['push'], { cwd })
+      await mustExec('git', ['push'], {cwd})
     }
   } catch (error) {
     core.setFailed(error.message)
